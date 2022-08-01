@@ -28,12 +28,16 @@ export const Main = () => {
     }
 
     const removeTasks = (id: number) => {
-
+        setTasks(tasks.filter((t) => t.id !== id))
     }
 
     const render : ListRenderItem<TasksType> = ({item}) => {
         return <View style = {styles.item}>
+            <View style = {styles.box}>
             <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.remove} onPress={() => {removeTasks(item.id)}}>X</Text>
+            </View>
+            
             <Text style={styles.check}>{item.isDone? 'true' : 'false'}</Text>
         </View>
     }
@@ -76,6 +80,15 @@ const styles = StyleSheet.create({
     button: {
         fontSize: 20,
         fontWeight: '500',
+    },
+    box: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    remove: {
+        color: 'orange',
+        fontSize: 20,
     },
 
     item: {
