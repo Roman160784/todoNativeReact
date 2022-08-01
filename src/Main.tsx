@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, FlatList, ListRenderItem, Dimensions } from "react-native";
-import { WIDTH, PADDING, TEXT, BODY, CARD, CONTENT } from "./consts";
+import { View, Text, StyleSheet, FlatList, ListRenderItem, Dimensions, TextInput, TouchableOpacity } from "react-native";
+import { WIDTH, PADDING, TEXT, CARD, CONTENT, RADIUS } from "./consts";
 
 
 type TasksType = {
@@ -19,6 +19,18 @@ export const Main = () => {
         { id: 4, title: 'React Native', isDone: false },
     ])
 
+    const [value, setValue] = useState('')
+
+    const addTask = () => {
+        const newTask: TasksType = {id: tasks.length + 1, title: value, isDone: false }
+        setTasks([newTask, ...tasks]),
+        setValue('')
+    }
+
+    const removeTasks = (id: number) => {
+
+    }
+
     const render : ListRenderItem<TasksType> = ({item}) => {
         return <View style = {styles.item}>
             <Text style={styles.title}>{item.title}</Text>
@@ -30,6 +42,15 @@ export const Main = () => {
 
     return (
         <View>
+            <View style={styles.inputBox}>
+                <TextInput style={styles.input} 
+                placeholder={'write something'} 
+                value={value} 
+                onChangeText={setValue}/>
+                <TouchableOpacity onPress={addTask}> 
+                    <Text style={styles.button}>ADD</Text>
+                </TouchableOpacity>
+            </View>
             <FlatList
             data={tasks}
             renderItem={render}
@@ -40,6 +61,23 @@ export const Main = () => {
 }
 
 const styles = StyleSheet.create({
+    inputBox: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    input: {
+        width: WIDTH - (PADDING * 2) - 50, 
+        height: 39,
+        borderWidth: 2, 
+        borderRadius: RADIUS,
+        marginTop: 10,
+    },
+    button: {
+        fontSize: 20,
+        fontWeight: '500',
+    },
+
     item: {
         width: WIDTH - (PADDING * 2),
         marginTop: 10,
@@ -47,7 +85,7 @@ const styles = StyleSheet.create({
         backgroundColor: CARD,
         paddingHorizontal: PADDING,
         paddingVertical: 5,
-        borderRadius: PADDING / 4,
+        borderRadius: RADIUS,
     },
     title: {
         color: TEXT,
@@ -60,5 +98,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '500',
         lineHeight: 20,
-    }
+    },
+    
 })

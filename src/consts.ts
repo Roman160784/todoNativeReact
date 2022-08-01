@@ -5,6 +5,7 @@ const {width, height} = Dimensions.get('screen')
 export const WIDTH = width
 export const HEIGHT = height
 export const PADDING = 20
+export const RADIUS = 10
 
 //colors
 
