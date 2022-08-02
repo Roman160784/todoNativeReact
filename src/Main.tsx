@@ -31,14 +31,19 @@ export const Main = () => {
         setTasks(tasks.filter((t) => t.id !== id))
     }
 
+    const changeCtatus = (id: number) => {
+        setTasks(tasks.map((t) => t.id === id ? {...t, isDone: !t.isDone} : t))
+    }
+
     const render : ListRenderItem<TasksType> = ({item}) => {
         return <View style = {styles.item}>
             <View style = {styles.box}>
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.remove} onPress={() => {removeTasks(item.id)}}>X</Text>
             </View>
-            
-            <Text style={styles.check}>{item.isDone? 'true' : 'false'}</Text>
+            <Text style={item.isDone === true ? styles.checked : styles.check} onPress={() => {changeCtatus(item.id)}}>
+                {item.isDone? 'completed' : 'in progress...'}
+            </Text>
         </View>
     }
 
@@ -112,5 +117,11 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         lineHeight: 20,
     },
+    checked: {
+        color: 'red',
+        fontSize: 16,
+        fontWeight: '500',
+        lineHeight: 20, 
+    }
     
 })
