@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { View, Text, StyleSheet, FlatList, ListRenderItem, Dimensions, TextInput, TouchableOpacity } from "react-native";
 import { WIDTH, PADDING, TEXT, CARD, CONTENT, RADIUS } from "./consts";
 
@@ -35,16 +36,37 @@ export const Main = () => {
         setTasks(tasks.map((t) => t.id === id ? {...t, isDone: !t.isDone} : t))
     }
 
+    const renderLeftActions = () => {
+        return(
+            <View>
+                <Text>Swiiiipe work</Text>
+            </View>
+        )
+    }
+    const renderRighttActions = () => {
+        return(
+            <View>
+                <Text>Delete....</Text>
+            </View>
+        )
+    }
+
     const render : ListRenderItem<TasksType> = ({item}) => {
-        return <View style = {styles.item}>
+        return <Swipeable
+        renderLeftActions={renderLeftActions}
+        renderRightActions={renderRighttActions}
+        onSwipeableRightOpen={() => {removeTasks(item.id)}}
+        >
+        <View style = {styles.item}>
             <View style = {styles.box}>
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.remove} onPress={() => {removeTasks(item.id)}}>X</Text>
             </View>
             <Text style={item.isDone === true ? styles.checked : styles.check} onPress={() => {changeCtatus(item.id)}}>
-                {item.isDone? 'completed' : 'in progress...'}
+                {item.isDone? 'Completed' : 'In progress...'}
             </Text>
         </View>
+        </Swipeable>
     }
 
     // const keyExtactor = (item, index) => {item.id.toString()}
