@@ -53,7 +53,7 @@ export const Main = () => {
         <View>
             <View style={styles.inputBox}>
                 <TextInput style={styles.input} 
-                placeholder={'write something'} 
+                placeholder={'    write something...'} 
                 value={value} 
                 onChangeText={setValue}/>
                 <TouchableOpacity onPress={addTask}> 
