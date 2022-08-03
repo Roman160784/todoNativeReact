@@ -69,7 +69,7 @@ export const Main = () => {
         </Swipeable>
     }
 
-    // const keyExtactor = (item, index) => {item.id.toString()}
+    const keyExtactor = (item: TasksType) =>  item.id.toString()
 
     return (
         <View>
@@ -85,7 +85,7 @@ export const Main = () => {
             <FlatList
             data={tasks}
             renderItem={render}
-            keyExtractor={(item) => item.id.toString()}
+            keyExtractor={keyExtactor}
             />
         </View>
     )
